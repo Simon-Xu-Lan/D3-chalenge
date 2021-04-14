@@ -443,5 +443,29 @@ class ChartX{
             }
         })
     }
+
+    addTips() {
+        // Step 1: Initialize Tooltip
+        this.toolTip = 
+            d3.tip()
+                .attr('class', 'tooltip')
+                .offset([80, -60])
+                .html(d => `${d[this.chosenXAxis]}<hr>${d[this.chosenYAxis]}`);
+
+        // Step 2: Create the tooltip in chartGroup.
+        this.chartGroup.call(this.toolTip);
+
+        // Step 3: Create "mouseover" event listener to display tooltip
+        // this.circleGroup
+        //     .on('mouseover', function (d) {
+        //         // this is the circle which mouse is ove
+        //         console.log(this);
+        //         toolTip.show(d, this);
+        //     })
+        // // Step 4: Create "mouseout" event listener to hide tooltip
+        //     .on('mouseout', function (d) {
+        //         toolTip.hide(d);
+        //     });
+    }
 }
 

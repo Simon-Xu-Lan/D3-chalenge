@@ -79,9 +79,28 @@ d3.csv("./assets/data/data.csv")
                 }
             })
 
+        chart.addTips()
+        chart.circleGroup
+            .on('mouseover', function (d) {
+                // this is the circle which mouse is ove
+                console.log(this);
+                chart.toolTip.show(d, this);
+            })
+        // Step 4: Create "mouseout" event listener to hide tooltip
+            .on('mouseout', function (d) {
+                chart.toolTip.hide(d);
+            });
 
-
-
+        chart.textGroup
+            .on('mouseover', function (d) {
+                // this is the circle which mouse is ove
+                console.log(this);
+                chart.toolTip.show(d, this);
+            })
+        // Step 4: Create "mouseout" event listener to hide tooltip
+            .on('mouseout', function (d) {
+                chart.toolTip.hide(d);
+            });
 
         
     })
