@@ -19,8 +19,9 @@ d3.csv("./assets/data/data.csv")
         })
         
         chart.bindData(data)
-        chart.setAxisX({x: "poverty", min: true, padding: 0.2})
-        chart.setAxisY({y: "healthcare", min: true, padding: 0.2})
+        chart.renderXScale({x: "poverty", min: true, padding: 0.2})
+        chart.renderYScale({y: "healthcare", min: true, padding: 0.2})
+        chart.addAxes()
         chart.addCircles({
             x: "poverty", 
             y: "healthcare",
@@ -38,6 +39,45 @@ d3.csv("./assets/data/data.csv")
             fill: "white"
         })
 
+        // chart.labelAxisX("In Poverty (%)")
+        // chart.labelAxisX("Age (Median)")
+        chart.labelAxisX([ {value: "poverty", text: "In Poverty (%)"},
+                           {value: "age", text: "Age (Median)"},
+                           {value: "income", text: "Household Income (median)"}
+        ])
+        // chart.labelAxisY("Lacks Healthcare (%)")
+        chart.labelAxisY([ {value: "healthcare", text: "Lacks Healthcare (%)"},
+                           {value: "smokes", text: "smokers (%)"},
+                           {value: "obesity", text: "Obess (%)"}
+        ])
+
+        // x axis label event listener
+        chart.xLabelsGroup.selectAll("text")
+            .on("click", function() {
+                var value = d3.select(this).attr("value")
+                
+                if (value !== chart.chosenXAxis) {
+                    chart.renderXScale({x: value, min: true, padding: 0.2})
+                    chart.renderXAxis()
+                    chart.renderCircles()
+                    chart.renderText()
+                    chart.renderAxisLabels()
+
+                }
+            })
+
+        chart.yLabelsGroup.selectAll("text")
+            .on("click", function() {
+                var value = d3.select(this).attr("value")
+                
+                if (value !== chart.chosenYAxis) {
+                    chart.renderYScale({y: value, min: true, padding: 0.2})
+                    chart.renderYAxis()
+                    chart.renderCircles()
+                    chart.renderText()
+                    chart.renderAxisLabels()
+                }
+            })
 
 
 
